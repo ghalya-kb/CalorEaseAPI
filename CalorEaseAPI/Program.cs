@@ -5,6 +5,8 @@ using Business.Localization;
 using Business.Validation;
 using CalorEaseAPI.Middlewares;
 using DataAccess.DbContext.EntityFrameworkCore;
+using DataAccess.Repositories.Abstract;
+using DataAccess.Repositories.Concrete;
 using Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -58,30 +60,39 @@ namespace CalorEaseAPI
 
             // JWT
             var jwt = builder.Configuration.GetSection("Jwt");
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new()
                 {
-                    options.TokenValidationParameters = new()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidIssuer = jwt["Issuer"],
-                        ValidAudience = jwt["Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]))
-                    };
-                });
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = jwt["Issuer"],
+                    ValidAudience = jwt["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]))
+                };
+            });
 
             // AuthManager DI
             builder.Services.AddScoped<IAuthService, AuthManager>();
             builder.Services.AddScoped<IMessageService, MessageService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileManager>();
+            builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+
 
             // Validation
-            builder.Services.AddValidatorsFromAssemblyContaining<UserProfileDtoValidator>();
             builder.Services.AddFluentValidationAutoValidation(config =>
             {
                 config.DisableDataAnnotationsValidation = true;
             })
             .AddFluentValidationClientsideAdapters();
+
+            builder.Services.AddValidatorsFromAssemblyContaining<UserProfileDtoValidator>();
+
 
             var app = builder.Build();
             app.UseHttpsRedirection();

@@ -8,6 +8,6 @@ namespace Business.Abstract
     {
         Task<IResult> CreateAsync(int userId, UserProfileDto dto);
         Task<IResult> UpdateAsync(int userId, UserProfileDto dto);
-        Task<IDataResult<UserProfile>> GetByUserIdAsync(int userId);
+        Task<IDataResult<UserProfileDto>> GetByUserIdAsync(int userId);
     }
 }

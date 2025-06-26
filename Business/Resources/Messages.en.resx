@@ -129,4 +129,34 @@
   <data name="DefaultError" xml:space="preserve">
     <value>An unexpected error occurred. Please try again later.</value>
   </data>
+  <data name="GreaterThan" xml:space="preserve">
+  <value>{0} must be greater than {1}.</value>
+</data>
+  <data name="NotEmpty" xml:space="preserve">
+  <value>{0} cannot be empty.</value>
+</data>
+  <data name="InclusiveBetween" xml:space="preserve">
+  <value>{0} must be between {1} and {2}.</value>
+</data>
+  <data name="ActivityLevelMustBeValid" xml:space="preserve">
+  <value>Activity level must be one of: Low, Medium, or High.</value>
+</data>
+  <data name="GoalTypeMustBeValid" xml:space="preserve">
+  <value>Goal type must be one of: Lose, Maintain, or Gain.</value>
+</data>
+  <data name="UserProfileAlreadyExists" xml:space="preserve">
+  <value>User profile already exists.</value>
+</data>
+  <data name="UserProfileCreated" xml:space="preserve">
+  <value>User profile created successfully.</value>
+</data>
+  <data name="UserProfileUpdated" xml:space="preserve">
+  <value>User profile updated successfully.</value>
+</data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+  <value>User profile not found.</value>
+</data>
+  <data name="UserProfileFetched" xml:space="preserve">
+  <value>User profile fetched successfully.</value>
+</data>
 </root>

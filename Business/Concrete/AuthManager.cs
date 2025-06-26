@@ -72,7 +72,7 @@ namespace Business.Concrete
                 signingCredentials: creds
             );
 
-            return new SuccessDataResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+            return new SuccessDataResult<string>(data:new JwtSecurityTokenHandler().WriteToken(token));
         }
     }
 }

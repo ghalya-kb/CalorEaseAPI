@@ -129,4 +129,34 @@
   <data name="DefaultError" xml:space="preserve">
     <value>Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.</value>
   </data>
+  <data name="GreaterThan" xml:space="preserve">
+  <value>{0}, {1} değerinden büyük olmalıdır.</value>
+</data>
+  <data name="NotEmpty" xml:space="preserve">
+  <value>{0} boş olamaz.</value>
+</data>
+  <data name="InclusiveBetween" xml:space="preserve">
+  <value>{0}, {1} ile {2} arasında olmalıdır.</value>
+</data>
+  <data name="ActivityLevelMustBeValid" xml:space="preserve">
+  <value>Aktivite seviyesi sadece Low, Medium veya High olabilir.</value>
+</data>
+  <data name="GoalTypeMustBeValid" xml:space="preserve">
+  <value>Hedef tipi sadece Lose, Maintain veya Gain olabilir.</value>
+</data>
+  <data name="UserProfileAlreadyExists" xml:space="preserve">
+  <value>Kullanıcı profili zaten mevcut.</value>
+</data>
+  <data name="UserProfileCreated" xml:space="preserve">
+  <value>Kullanıcı profili başarıyla oluşturuldu.</value>
+</data>
+  <data name="UserProfileUpdated" xml:space="preserve">
+  <value>Kullanıcı profili başarıyla güncellendi.</value>
+</data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+  <value>Kullanıcı profili bulunamadı.</value>
+</data>
+  <data name="UserProfileFetched" xml:space="preserve">
+  <value>Kullanıcı profili başarıyla getirildi.</value>
+</data>
 </root>

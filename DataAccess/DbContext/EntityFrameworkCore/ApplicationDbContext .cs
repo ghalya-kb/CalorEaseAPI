@@ -14,6 +14,7 @@ namespace DataAccess.DbContext.EntityFrameworkCore
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<WaterIntake> WaterIntakes { get; set; }
         public DbSet<WeightTracking> WeightTrackings { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

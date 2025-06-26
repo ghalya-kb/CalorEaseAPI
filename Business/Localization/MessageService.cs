@@ -15,5 +15,7 @@ namespace Business.Localization
         }
 
         public string this[string key] => _localizer[key];
+
+        public string this[string name, params object[] arguments] => _localizer[name, arguments];
     }
 }
