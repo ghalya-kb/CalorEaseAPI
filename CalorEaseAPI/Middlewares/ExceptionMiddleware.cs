@@ -1,5 +1,7 @@
 ﻿using Business.Localization;
 using Core.Utilities.Result;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
 
@@ -9,6 +11,7 @@ namespace CalorEaseAPI.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly IMessageService _messages;
 
         public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
@@ -26,12 +29,21 @@ namespace CalorEaseAPI.Middlewares
             {
                 _logger.LogError(ex, "Unhandled exception");
 
-                context.Response.ContentType = "application/json";
+                context.Response.ContentType = "application/problem+json";
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                var result = new ErrorResult(messages["DefaultError"]);
+                var problemDetails = new ProblemDetails
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Title = messages["DefaultError"],
+                    Detail = ex.Message,
+                    Instance = context.Request.Path
+                };
+                var json = JsonSerializer.Serialize(problemDetails, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
 
-                var json = JsonSerializer.Serialize(result);
                 await context.Response.WriteAsync(json);
             }
         }
