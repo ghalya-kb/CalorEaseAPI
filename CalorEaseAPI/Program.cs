@@ -2,6 +2,7 @@
 using Business.Abstract;
 using Business.Concrete;
 using Business.Localization;
+using Business.Mapping;
 using Business.Validation;
 using CalorEaseAPI.Middlewares;
 using DataAccess.DbContext.EntityFrameworkCore;
@@ -17,6 +18,8 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
+
 
 namespace CalorEaseAPI
 {
@@ -93,6 +96,8 @@ namespace CalorEaseAPI
 
             builder.Services.AddValidatorsFromAssemblyContaining<UserProfileDtoValidator>();
 
+            // Mapping
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
             var app = builder.Build();
             app.UseHttpsRedirection();

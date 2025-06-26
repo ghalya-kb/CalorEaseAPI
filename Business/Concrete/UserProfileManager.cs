@@ -5,6 +5,7 @@ using Entities.DTOs;
 using Entities;
 using Microsoft.Extensions.Localization;
 using Business.Localization;
+using AutoMapper;
 
 namespace Business.Concrete
 {
@@ -12,35 +13,26 @@ namespace Business.Concrete
     {
         private readonly IUserProfileRepository _userProfileRepository;
         private readonly IMessageService _messages;
+        private readonly IMapper _mapper;
 
         public UserProfileManager(
             IUserProfileRepository userProfileRepository,
-            IMessageService messages)
+            IMessageService messages,
+            IMapper mapper)
         {
             _userProfileRepository = userProfileRepository;
             _messages = messages;
+            _mapper = mapper;
         }
 
         public async Task<IResult> CreateAsync(int userId, UserProfileDto dto)
         {
             var existingProfile = await _userProfileRepository.FirstOrDefaultAsync(p => p.UserId == userId, trackChanges: false);
             if (existingProfile != null)
-            {
                 return new ErrorResult(_messages["UserProfileAlreadyExists"]);
-            }
 
-            var profile = new UserProfile
-            {
-                UserId = userId,
-                HeightCm = dto.HeightCm,
-                WeightKg = dto.WeightKg,
-                Age = dto.Age,
-                ActivityLevel = dto.ActivityLevel,
-                GoalType = dto.GoalType,
-                BMR = dto.BMR,
-                TDEE = dto.TDEE,
-                CalorieTarget = dto.CalorieTarget
-            };
+            var profile = _mapper.Map<UserProfile>(dto);
+            profile.UserId = userId;
 
             await _userProfileRepository.AddAsync(profile);
             await _userProfileRepository.SaveAsync();
@@ -52,21 +44,13 @@ namespace Business.Concrete
         {
             var profile = await _userProfileRepository.FirstOrDefaultAsync(p => p.UserId == userId, trackChanges: true);
             if (profile == null)
-            {
                 return new ErrorResult(_messages["UserProfileNotFound"]);
-            }
 
-            profile.HeightCm = dto.HeightCm;
-            profile.WeightKg = dto.WeightKg;
-            profile.Age = dto.Age;
-            profile.ActivityLevel = dto.ActivityLevel;
-            profile.GoalType = dto.GoalType;
-            profile.BMR = dto.BMR;
-            profile.TDEE = dto.TDEE;
-            profile.CalorieTarget = dto.CalorieTarget;
+            _mapper.Map(dto, profile);
 
             _userProfileRepository.Update(profile);
             await _userProfileRepository.SaveAsync();
+
             return new SuccessResult(_messages["UserProfileUpdated"]);
         }
 
@@ -74,21 +58,9 @@ namespace Business.Concrete
         {
             var profile = await _userProfileRepository.FirstOrDefaultAsync(p => p.UserId == userId, trackChanges: false);
             if (profile == null)
-            {
                 return new ErrorDataResult<UserProfileDto>(_messages["UserProfileNotFound"]);
-            }
 
-            var dto = new UserProfileDto
-            {
-                HeightCm = profile.HeightCm,
-                WeightKg = profile.WeightKg,
-                Age = profile.Age,
-                ActivityLevel = profile.ActivityLevel,
-                GoalType = profile.GoalType,
-                BMR = profile.BMR,
-                TDEE = profile.TDEE,
-                CalorieTarget = profile.CalorieTarget
-            };
+            var dto = _mapper.Map<UserProfileDto>(profile);
 
             return new SuccessDataResult<UserProfileDto>(dto, _messages["UserProfileFetched"]);
         }

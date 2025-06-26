@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using Business.Localization;
 using Core.Utilities.Result;
+using AutoMapper;
 
 namespace Business.Concrete
 {
@@ -17,28 +18,23 @@ namespace Business.Concrete
         private readonly IMessageService _messages;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthManager(UserManager<ApplicationUser> userManager, IConfiguration config, IMessageService messages)
+        public AuthManager(UserManager<ApplicationUser> userManager, IConfiguration config, IMessageService messages, IMapper mapper)
         {
             _userManager = userManager;
             _config = config;
             _messages = messages;
+            _mapper = mapper;
         }
 
         public async Task<IResult> RegisterAsync(RegisterDto dto)
         {
-            var user = new ApplicationUser
-            {
-                Email = dto.Email,
-                UserName = dto.Email,
-                FullName = dto.FullName,
-                Gender = dto.Gender,
-                CreatedAt = DateTime.UtcNow
-            };
+            var user = _mapper.Map<ApplicationUser>(dto);
 
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
-                return new ErrorResult(_messages["RegisterFailed"] + Environment.NewLine + string.Join(Environment.NewLine,result.Errors.Select(er => er.Description)));
+                return new ErrorResult(_messages["RegisterFailed"] + Environment.NewLine + string.Join(Environment.NewLine, result.Errors.Select(er => er.Description)));
 
             return new SuccessResult(_messages["RegisterSuccess"]);
         }
