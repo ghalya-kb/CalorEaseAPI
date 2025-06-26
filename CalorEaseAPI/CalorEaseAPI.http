@@ -1,0 +1,6 @@
+@CalorEaseAPI_HostAddress = http://localhost:5185
+
+GET {{CalorEaseAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
