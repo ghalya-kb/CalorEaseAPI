@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
+using CalorEaseAPI.Extensions;
 
 
 namespace CalorEaseAPI
@@ -31,73 +32,21 @@ namespace CalorEaseAPI
 
             builder.Services.AddControllers();
 
-            // DB
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContextServices(builder.Configuration);
 
-            // Identity
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
-            {
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-            .AddErrorDescriber<LocalizedIdentityErrorDescriber>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            builder.Services.AddIdentityServices();
 
-            // Localization
-            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            builder.Services.AddLocalizationServices();
 
-            builder.Services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[] { "en", "tr" };
-                options.SetDefaultCulture("en")
-                       .AddSupportedCultures(supportedCultures)
-                       .AddSupportedUICultures(supportedCultures);
+            builder.Services.AddJwtAuthenticationServices(builder.Configuration);
 
-                options.ApplyCurrentCultureToResponseHeaders = true;
-            });
+            builder.Services.AddValidationServices();
 
-            // JWT
-            var jwt = builder.Configuration.GetSection("Jwt");
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = jwt["Issuer"],
-                    ValidAudience = jwt["Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]))
-                };
-            });
+            builder.Services.AddMapperServices();
 
-            // AuthManager DI
-            builder.Services.AddScoped<IAuthService, AuthManager>();
-            builder.Services.AddScoped<IMessageService, MessageService>();
-            builder.Services.AddScoped<IUserProfileService, UserProfileManager>();
-            builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+            builder.Services.AddBusinessServicesDI();
 
-
-            // Validation
-            builder.Services.AddFluentValidationAutoValidation(config =>
-            {
-                config.DisableDataAnnotationsValidation = true;
-            })
-            .AddFluentValidationClientsideAdapters();
-
-            builder.Services.AddValidatorsFromAssemblyContaining<UserProfileDtoValidator>();
-
-            // Mapping
-            builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+            builder.Services.AddDataAccessServicesDI();
 
             var app = builder.Build();
             app.UseHttpsRedirection();
