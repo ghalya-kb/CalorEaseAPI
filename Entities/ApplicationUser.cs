@@ -12,6 +12,9 @@ namespace Entities
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
 
+        public string? PasswordResetCode { get; set; }
+        public DateTime? PasswordResetCodeExpiry { get; set; }
+
         public UserProfile Profile { get; set; }
     }
 }

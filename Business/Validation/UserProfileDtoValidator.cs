@@ -1,7 +1,6 @@
 ﻿using Business.Localization;
 using Entities.DTOs;
 using FluentValidation;
-using Microsoft.Extensions.Localization;
 
 namespace Business.Validation
 {

@@ -168,4 +168,37 @@
 <data name="RefreshTokenExpired" xml:space="preserve">
   <value>The refresh token has expired. Please log in again.</value>
 </data>
+  <data name="PasswordResetTokenSent" xml:space="preserve">
+  <value>Password reset instructions have been sent to your email</value>
+</data>
+  <data name="PasswordResetSuccess" xml:space="preserve">
+  <value>Your password has been successfully reset</value>
+</data>
+  <data name="PasswordResetFailed" xml:space="preserve">
+  <value>Failed to reset password</value>
+</data>
+  <data name="InvalidEmail" xml:space="preserve">
+  <value>Please enter a valid email address.</value>
+</data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+  <value>Password must contain at least one digit</value>
+</data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+  <value>Password must contain at least one lowercase letter</value>
+</data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+  <value>Password must contain at least one uppercase letter</value>
+</data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Password must be at least {0} characters long</value>
+  </data>
+  <data name="PasswordResetCodeSent" xml:space="preserve">
+  <value>Password reset code has been sent to your email.</value>
+</data>
+  <data name="InvalidOrExpiredResetCode" xml:space="preserve">
+  <value>Reset code is invalid or expired.</value>
+</data>
+  <data name="FailedToGenerateResetCode" xml:space="preserve">
+  <value>Failed to generate password reset code.</value>
+</data>
 </root>

@@ -8,5 +8,7 @@ namespace Business.Abstract
         Task<IResult> RegisterAsync(RegisterDto dto);
         Task<IDataResult<TokenResponseDto>> LoginAsync(LoginDto dto);
         Task<IDataResult<TokenResponseDto>> RefreshTokenAsync(RefreshTokenDto dto);
+        Task<IResult> ForgotPasswordAsync(string email);
+        Task<IResult> ResetPasswordAsync(ResetPasswordDto dto);
     }
 }

@@ -168,4 +168,37 @@
   <data name="RefreshTokenExpired" xml:space="preserve">
   <value>Yenileme belirtecinin süresi dolmuş. Lütfen tekrar giriş yapın.</value>
 </data>
+  <data name="PasswordResetTokenSent" xml:space="preserve">
+  <value>Şifre sıfırlama talimatları e-postanıza gönderildi</value>
+</data>
+  <data name="PasswordResetSuccess" xml:space="preserve">
+  <value>Şifreniz başarıyla sıfırlandı</value>
+</data>
+  <data name="PasswordResetFailed" xml:space="preserve">
+  <value>Şifre sıfırlanamadı</value>
+</data>
+  <data name="InvalidEmail" xml:space="preserve">
+  <value>Lütfen geçerli bir e-posta adresi girin.</value>
+</data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+  <value>Şifre en az bir rakam içermelidir</value>
+</data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+  <value>Şifre en az bir küçük harf içermelidir</value>
+</data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+  <value>Şifre en az bir büyük harf içermelidir</value>
+</data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>Şifre en az {0} karakter uzunluğunda olmalıdır.</value>
+  </data>
+  <data name="PasswordResetCodeSent" xml:space="preserve">
+  <value>Şifre sıfırlama kodu e-posta adresinize gönderildi.</value>
+</data>
+  <data name="InvalidOrExpiredResetCode" xml:space="preserve">
+  <value>Sıfırlama kodu geçersiz veya süresi dolmuş.</value>
+</data>
+  <data name="FailedToGenerateResetCode" xml:space="preserve">
+  <value>Şifre sıfırlama kodu oluşturulamadı.</value>
+</data>
 </root>

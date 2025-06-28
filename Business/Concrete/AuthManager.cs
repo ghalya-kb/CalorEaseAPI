@@ -20,13 +20,15 @@ namespace Business.Concrete
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly IEmailSenderService _emailSender;
 
-        public AuthManager(UserManager<ApplicationUser> userManager, IConfiguration config, IMessageService messages, IMapper mapper)
+        public AuthManager(UserManager<ApplicationUser> userManager, IConfiguration config, IMessageService messages, IMapper mapper, IEmailSenderService emailSender)
         {
             _userManager = userManager;
             _config = config;
             _messages = messages;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
 
         public async Task<IResult> RegisterAsync(RegisterDto dto)
@@ -81,6 +83,57 @@ namespace Business.Concrete
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken
             });
+        }
+        public async Task<IResult> ForgotPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return new ErrorResult(_messages["InvalidEmail"]);
+
+            var code = new Random().Next(100000, 999999).ToString(); // 6-digit numeric code
+
+            user.PasswordResetCode = code;
+            user.PasswordResetCodeExpiry = DateTime.UtcNow.AddMinutes(10);
+
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+                return new ErrorResult(_messages["FailedToGenerateResetCode"]);
+
+            var emailResult = await _emailSender.SendPasswordResetCodeAsync(email, code);
+            if (!emailResult.Success)
+                return emailResult;
+
+            return new SuccessResult(_messages["PasswordResetCodeSent"]);
+        }
+        public async Task<IResult> ResetPasswordAsync(ResetPasswordDto dto)
+        {
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+                return new ErrorResult(_messages["InvalidEmail"]);
+
+            if (user.PasswordResetCode == null || user.PasswordResetCodeExpiry == null ||
+                user.PasswordResetCode != dto.Token || user.PasswordResetCodeExpiry <= DateTime.UtcNow)
+            {
+                return new ErrorResult(_messages["InvalidOrExpiredResetCode"]);
+            }
+
+            // Clear the code
+            user.PasswordResetCode = null;
+            user.PasswordResetCodeExpiry = null;
+
+            // Generate internal Identity token and reset password
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, dto.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(Environment.NewLine, result.Errors.Select(e => e.Description));
+                return new ErrorResult(_messages["PasswordResetFailed"] + Environment.NewLine + errors);
+            }
+
+            await _userManager.UpdateAsync(user); // Persist clearing code
+
+            return new SuccessResult(_messages["PasswordResetSuccess"]);
         }
         private IDataResult<string> GenerateJwt(ApplicationUser user)
         {

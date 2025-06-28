@@ -104,6 +104,7 @@ namespace CalorEaseAPI.Extensions
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<IUserProfileService, UserProfileManager>();
+            services.AddScoped<IEmailSenderService, EmailSenderManager>();
 
             return services;
         }
