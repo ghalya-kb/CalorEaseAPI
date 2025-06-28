@@ -159,4 +159,13 @@
   <data name="UserProfileFetched" xml:space="preserve">
   <value>Kullanıcı profili başarıyla getirildi.</value>
 </data>
+  <data name="InvalidAccessToken" xml:space="preserve">
+  <value>Erişim belirteci geçersiz.</value>
+</data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+  <value>Yenileme belirteci geçersiz veya eşleşmiyor.</value>
+</data>
+  <data name="RefreshTokenExpired" xml:space="preserve">
+  <value>Yenileme belirtecinin süresi dolmuş. Lütfen tekrar giriş yapın.</value>
+</data>
 </root>

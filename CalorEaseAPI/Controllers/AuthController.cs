@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Result;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,28 @@ namespace CalorEaseAPI.Controllers
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var msg = await _authService.RegisterAsync(dto);
-            return Ok(new { message = msg });
+            if (!msg.Success)
+                return BadRequest(msg.Message);
+
+            return Ok(msg.Message);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var token = await _authService.LoginAsync(dto);
+
             return Ok(new { token });
+        }
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto tokenDto)
+        {
+            var result = await _authService.RefreshTokenAsync(tokenDto);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result.Data);
         }
     }
 }

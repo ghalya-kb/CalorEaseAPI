@@ -9,6 +9,9 @@ namespace Entities
         public string Gender { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
+
         public UserProfile Profile { get; set; }
     }
 }

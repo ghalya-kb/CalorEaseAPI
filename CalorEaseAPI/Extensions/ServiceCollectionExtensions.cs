@@ -75,7 +75,8 @@ namespace CalorEaseAPI.Extensions
                     ValidateAudience = true,
                     ValidIssuer = jwt["Issuer"],
                     ValidAudience = jwt["Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"])),
+                    ClockSkew = TimeSpan.Zero,
                 };
             });
 

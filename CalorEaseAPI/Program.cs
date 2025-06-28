@@ -1,24 +1,5 @@
-
-using Business.Abstract;
-using Business.Concrete;
-using Business.Localization;
-using Business.Mapping;
-using Business.Validation;
 using CalorEaseAPI.Middlewares;
-using DataAccess.DbContext.EntityFrameworkCore;
-using DataAccess.Repositories.Abstract;
-using DataAccess.Repositories.Concrete;
-using Entities;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using AutoMapper;
 using CalorEaseAPI.Extensions;
 
 
