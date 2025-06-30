@@ -105,12 +105,14 @@ namespace CalorEaseAPI.Extensions
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<IUserProfileService, UserProfileManager>();
             services.AddScoped<IEmailSenderService, EmailSenderManager>();
+            services.AddScoped<IMealService, MealManager>();
 
             return services;
         }
         public static IServiceCollection AddDataAccessServicesDI(this IServiceCollection services)
         {
             services.AddScoped<IUserProfileRepository, UserProfileRepository>();
+            services.AddScoped<IMealRepository, MealRepository>();
 
             return services;
         }

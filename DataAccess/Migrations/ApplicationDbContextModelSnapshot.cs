@@ -145,7 +145,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Meal", b =>
@@ -173,7 +173,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Meals");
+                    b.ToTable("Meals", (string)null);
                 });
 
             modelBuilder.Entity("Entities.MealItem", b =>
@@ -210,7 +210,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("MealItems");
+                    b.ToTable("MealItems", (string)null);
                 });
 
             modelBuilder.Entity("Entities.UserProfile", b =>
@@ -255,7 +255,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("UserProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Entities.WaterIntake", b =>
@@ -279,7 +279,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WaterIntakes");
+                    b.ToTable("WaterIntakes", (string)null);
                 });
 
             modelBuilder.Entity("Entities.WeightTracking", b =>
@@ -303,7 +303,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WeightTrackings");
+                    b.ToTable("WeightTrackings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>

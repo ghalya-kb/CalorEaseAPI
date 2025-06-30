@@ -14,6 +14,11 @@ namespace Business.Mapping
 
             CreateMap<UserProfileDto, UserProfile>();
             CreateMap<UserProfile, UserProfileDto>();
+
+            CreateMap<MealDto, Meal>();
+            CreateMap<Meal, MealDto>();
+            CreateMap<MealItemDto, MealItem>();
+            CreateMap<MealItem, MealItemDto>();
         }
     }
 }

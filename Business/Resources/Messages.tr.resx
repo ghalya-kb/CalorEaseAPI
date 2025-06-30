@@ -201,4 +201,19 @@
   <data name="FailedToGenerateResetCode" xml:space="preserve">
   <value>Şifre sıfırlama kodu oluşturulamadı.</value>
 </data>
+  <data name="MealAdded" xml:space="preserve">
+    <value>Öğün başarıyla eklendi.</value>
+  </data>
+  <data name="MealDeleted" xml:space="preserve">
+    <value>Öğün başarıyla silindi.</value>
+  </data>
+  <data name="MealNotFound" xml:space="preserve">
+    <value>Öğün bulunamadı.</value>
+  </data>
+  <data name="DailyMealsFetched" xml:space="preserve">
+    <value>Günlük öğünler başarıyla getirildi.</value>
+  </data>
+  <data name="InvalidMealType" xml:space="preserve">
+  <value>Öğün türü Kahvaltı, Öğle Yemeği veya Akşam Yemeği olmalıdır.</value>
+</data>
 </root>

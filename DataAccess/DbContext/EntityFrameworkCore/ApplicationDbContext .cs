@@ -28,7 +28,11 @@ namespace DataAccess.DbContext.EntityFrameworkCore
             .HasForeignKey<UserProfile>(p => p.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-
+            builder.Entity<Meal>()
+            .HasMany(m => m.MealItems)
+            .WithOne(mi => mi.Meal)
+            .HasForeignKey(mi => mi.MealId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

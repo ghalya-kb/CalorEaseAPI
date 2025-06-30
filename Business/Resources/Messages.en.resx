@@ -201,4 +201,19 @@
   <data name="FailedToGenerateResetCode" xml:space="preserve">
   <value>Failed to generate password reset code.</value>
 </data>
+  <data name="MealAdded" xml:space="preserve">
+    <value>Meal has been added successfully.</value>
+  </data>
+  <data name="MealDeleted" xml:space="preserve">
+<value>Meal has been deleted successfully.</value>
+</data>
+  <data name="MealNotFound" xml:space="preserve">
+<value>Meal not found.</value>
+</data>
+  <data name="DailyMealsFetched" xml:space="preserve">
+<value>Daily meals retrieved successfully.</value>
+</data>
+  <data name="InvalidMealType" xml:space="preserve">
+  <value>Meal type must be either Breakfast, Lunch, or Dinner.</value>
+</data>
 </root>
